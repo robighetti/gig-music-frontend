@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
-import avaliefacilApi from '../api/avaliefacilApi';
+import gigApi from '../api/gigApi';
 
 import { useHistory } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await avaliefacilApi.post('/sessions', {
+    const response = await gigApi.post('/sessions', {
       email,
       password,
     });

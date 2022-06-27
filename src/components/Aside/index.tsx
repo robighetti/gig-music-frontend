@@ -42,7 +42,7 @@ const Aside: React.FC = () => {
 
       <Content click={click}>
         <Header>
-          <LogoImg src={LogoColorido} alt="Avalie Fácil" />
+          <LogoImg src={LogoColorido} alt="Gig Music" />
         </Header>
 
         <MenuContent>
