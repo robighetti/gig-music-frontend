@@ -9,11 +9,11 @@ import { useToast } from '../../hooks/toast';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logo from '../../assets/rbg-logo.png';
+import logo from '../../assets/gig-logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, Background, ForgotPass } from './styles';
 
 interface UserProps {
   email: string;
@@ -80,7 +80,7 @@ const SignIn: React.FC = () => {
 
           <Button type="submit">Entrar</Button>
 
-          {/* <a href="#">Esqueci minha senha</a> */}
+          <ForgotPass href="#">Esqueci minha senha</ForgotPass>
         </Form>
       </Content>
     </Container>

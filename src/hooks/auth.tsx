@@ -3,24 +3,25 @@ import gigApi from '../api/gigApi';
 
 import { useHistory } from 'react-router-dom';
 
+import userMock from '../mocks/userMock';
+
 interface SignInCredentials {
   email: string;
   password: string;
+}
+
+interface UserProps {
+  avatar?: string;
+  avatar_url?: string;
+  email: string;
+  id: string;
+  name: string;
 }
 
 interface AuthState {
   token: string;
   user: UserProps;
 }
-
-interface UserProps {
-  avatar: string;
-  avatar_url: string;
-  email: string;
-  id: string;
-  name: string;
-}
-
 interface AuthContextProps {
   user: UserProps;
   signIn(credentials: SignInCredentials): Promise<void>;
@@ -32,8 +33,8 @@ const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 const AuthProvider: React.FC = ({ children }) => {
   const history = useHistory();
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@rbg:token');
-    const user = localStorage.getItem('@rbg:user');
+    const token = localStorage.getItem('@gig:token');
+    const user = localStorage.getItem('@gig:user');
 
     if (token && user) {
       return {
@@ -46,15 +47,27 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await gigApi.post('/sessions', {
+    /*  const response = await gigApi.post('/sessions', {
       email,
       password,
-    });
+    }); */
 
-    const { token, user } = response.data;
+    //const { token, user } = response.data;
 
-    localStorage.setItem('@rbg:token', token);
-    localStorage.setItem('@rbg:user', JSON.stringify(user));
+    /* TODO: MOCK */
+    const user = userMock.find(
+      usr => usr.email === email && usr.password === password,
+    );
+
+    if (!user) {
+      console.log(user);
+      throw new Error('User not find');
+    }
+    const token: string =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU2MzQ1OTQ2LCJleHAiOjE2NTY0MzIzNDZ9.uwSIKa8aSYlfhtawgx2o8QkO0MAsdCrZc9f3nshcn-8';
+
+    localStorage.setItem('@gig:token', token);
+    localStorage.setItem('@gig:user', JSON.stringify(user));
 
     setData({
       token,
@@ -63,8 +76,8 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@rbg:token');
-    localStorage.removeItem('@rbg:user');
+    localStorage.removeItem('@gig:token');
+    localStorage.removeItem('@gig:user');
 
     setData({} as AuthState);
     history.push('/');

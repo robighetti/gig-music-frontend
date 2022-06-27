@@ -6,7 +6,7 @@ export const Container = styled.button`
   border-radius: 8px;
   border: 0;
   padding: 0 16px;
-  color: ${({theme}) => theme.colors.shape};
+  color: ${({theme}) => theme.colors.text};
   width: 100%;
   font-weight: ${({theme}) => theme.fonts.medium};
   margin-top: 16px;

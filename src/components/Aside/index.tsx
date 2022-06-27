@@ -7,7 +7,7 @@ import { moduleMenus } from '../../utils/menu/menu';
 
 import { Submenu } from './Submenu';
 
-import LogoColorido from '../../assets/rbg-logo.png';
+import LogoColorido from '../../assets/gig-logo.png';
 
 import {
   Container,

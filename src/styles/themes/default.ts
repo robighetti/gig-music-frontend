@@ -1,29 +1,28 @@
 export default {
   colors: {
-    primary: '#485159',
-    primary_light: 'rgba(72, 81, 89, 0.3)',
+    primary: '#7E5EF2',
+    primary_light: 'rgba(126,94,242,0.2)',
 
-    secondary: '#04D9C4',
-    secondary_light: 'rgba(4, 217, 196, 0.1)',
+    secondary: '#F207A0',
+    secondary_light: 'rgba(242,7,160,0.2)',
 
-    tertiary: '#A2F2EA',
-    tertiary_light: 'rgba(162, 242, 234, 0.3)',
+    tertiary: '#fff',
+    tertiary_light: 'rgba(255, 255, 255, 0.2)',
 
     success: '#12a454',
-    success_light: 'rgba(18,164,84,0.5)',
+    success_light: 'rgba(18,164,84,0.3)',
 
     attention: '#e83f5b',
-    attention_light: 'rgba(232,63,91,0.5)',
+    attention_light: 'rgba(232,63,91,0.3)',
 
-    background: '#F2F2F2',
-    shape: '#ffffff',
+    background: '#333',
+    shape: '#333',
     black: '#0D0D0D',
     gray: '#C0C0C0',
     shadow: '#333',
-    placeholder: '#808080',
-    title: '#485159',
-    text: '#333',
-    text_dark: '#000000',
+    placeholder: '#fff',
+    text: '#ffffff',
+    text_dark: '##7E5EF2',
 
     success_title: '#2e656a',
     success_background: '#e6fffa',

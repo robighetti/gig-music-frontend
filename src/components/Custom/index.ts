@@ -134,7 +134,7 @@ export const ListItems = styled.li`
   border-left: 6px solid ${props => props.theme.colors.secondary};
 
   padding: 4px 16px;
-  color: ${props => props.theme.colors.title};
+  color: ${props => props.theme.colors.primary};
 
   display: flex;
   justify-content: space-between;
@@ -151,7 +151,7 @@ export const ListItems = styled.li`
     color: ${props => props.theme.colors.secondary};
 
     p {
-      color: ${props => props.theme.colors.title};
+      color: ${props => props.theme.colors.primary};
       margin-bottom: 0 !important;
       margin: 0 auto;
     }
@@ -184,7 +184,7 @@ export const ListItems = styled.li`
 `;
 
 export const Header = styled.header`
-  color: ${props => props.theme.colors.title};
+  color: ${props => props.theme.colors.primary};
   width: 100%;
 
   display: flex;
@@ -239,7 +239,7 @@ export const FilterContainer = styled.button`
   align-items: center;
 
   > svg {
-    color: ${props => props.theme.colors.title};
+    color: ${props => props.theme.colors.primary};
   }
 
   transition: all 0.2s;

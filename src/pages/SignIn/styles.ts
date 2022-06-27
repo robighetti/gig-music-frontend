@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import suporte from '../../assets/suporte.jpg';
+import background from '../../assets/background.jpg';
 
 export const Container = styled.div`
   position: relative;
@@ -10,6 +10,8 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+  opacity: 0.9;
+
   position: absolute;
   width: 600px;
   display: flex;
@@ -26,38 +28,39 @@ export const Content = styled.div`
   box-shadow: 0 0 8px ${({theme}) => theme.colors.shadow};
 
   img {
-    margin-top: 24px;
-    width: 320px;
+    margin-top: 14px;
+    width: 220px;
   }
 
   form {
-    margin: 30px 0;
+    margin: 16px 0;
     width: 90%;
     text-align: center;
 
     h1 {
+      color: ${({theme}) => theme.colors.primary};
       margin-bottom: 24px;
       font-family: ${({theme}) => theme.fonts.medium};
     }
+  }
+`;
 
-    a {
-      color: ${({theme}) => theme.colors.text};
-      display: block;
-      margin-top: 24px;
-      text-decoration: none;
-      transition: all 0.2s;
+export const ForgotPass = styled.a`
+  color: ${({theme}) => theme.colors.text};
+  display: block;
+  margin-top: 24px;
+  text-decoration: none;
+  transition: all 0.2s;
 
-      &:hover {
-        opacity: 0.4;
-        transform: scale(1.03);
-      }
-    }
+  &:hover {
+    opacity: 0.4;
   }
 `;
 
 export const Background = styled.div`
   flex: 1;
-  background: url(${suporte}) no-repeat center;
+  background: url(${background}) no-repeat center;
   background-size: cover;
   background-position: top;
+  filter: grayscale(90%) sepia(80%);
 `;

@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const SidebarLink = styled(Link)`
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({theme}) => theme.colors.tertiary};
 
   display: flex;
   justify-content: space-between;
@@ -18,8 +18,8 @@ export const SidebarLink = styled(Link)`
   font-size: 18px;
 
   &:hover {
-    background: ${({theme}) => theme.colors.secondary_light};
-    border-left: 4px solid ${({theme}) => theme.colors.secondary};
+    background: ${({theme}) => theme.colors.tertiary_light};
+    border-left: 4px solid ${({theme}) => theme.colors.tertiary};
     cursor: pointer;
   }
 
@@ -51,12 +51,12 @@ export const DropdowLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({theme}) => theme.colors.tertiary};
   font-size: 18px;
 
   &:hover {
-    background: ${({theme}) => theme.colors.secondary_light};
-    border-left: 4px solid ${({theme}) => theme.colors.secondary};
+    background: ${({theme}) => theme.colors.tertiary_light};
+    border-left: 4px solid ${({theme}) => theme.colors.tertiary};
     cursor: pointer;
   }
 `;

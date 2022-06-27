@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   grid-area: CT;
   background-color: ${props => props.theme.colors.shape};
-  font-family: ${({theme}) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular} !important;
 
 
   padding: 25px;

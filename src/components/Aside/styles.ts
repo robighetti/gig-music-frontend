@@ -33,7 +33,7 @@ export const Container = styled.div<ClickProps>`
 
   grid-area: AS;
   background-color: ${props => props.theme.colors.background};
-  font-family: ${({theme}) => theme.fonts.regular};
+  font-family: ${({theme}) => theme.fonts.regular} !important;
 
   padding-left: 16px;
   border-right: 1px solid ${props => props.theme.colors.primary};
@@ -128,7 +128,8 @@ export const Header = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  width: 10rem;
+
+  width: 5rem;
 `;
 
 export const MenuContainer = styled.ul`

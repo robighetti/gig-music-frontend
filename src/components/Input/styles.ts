@@ -9,10 +9,10 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background: ${({theme}) => theme.colors.secondary_light};
+  background: ${({theme}) => theme.colors.tertiary_light};
   border-radius: 10px;
 
-  border: 2px solid ${({theme}) => theme.colors.secondary_light};
+  border: 2px solid ${({theme}) => theme.colors.tertiary_light};
   color: ${({theme}) => theme.colors.placeholder};
 
   padding: 16px;
