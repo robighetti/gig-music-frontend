@@ -42,7 +42,7 @@ const SignIn: React.FC = () => {
 
         const { email, password } = data;
 
-        signIn({
+        await signIn({
           email,
           password,
         });
@@ -52,6 +52,7 @@ const SignIn: React.FC = () => {
 
           formRef.current?.setErrors(errors);
         }
+
         addToast({
           type: 'error',
           title: 'Erro na autenticação',
@@ -87,4 +88,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export { SignIn };

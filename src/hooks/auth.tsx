@@ -3,6 +3,8 @@ import gigApi from '../api/gigApi';
 
 import { useHistory } from 'react-router-dom';
 
+import { useToast } from './toast';
+
 import userMock from '../mocks/userMock';
 
 interface SignInCredentials {
@@ -31,6 +33,8 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 const AuthProvider: React.FC = ({ children }) => {
+  const { addToast } = useToast();
+
   const history = useHistory();
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@gig:token');
@@ -60,9 +64,14 @@ const AuthProvider: React.FC = ({ children }) => {
     );
 
     if (!user) {
-      console.log(user);
-      throw new Error('User not find');
+      addToast({
+        type: 'error',
+        title: 'Erro na autenticação',
+        description: 'Ocorreu um erro ao fazer login, cheque as credenciais!',
+      });
+      return;
     }
+
     const token: string =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU2MzQ1OTQ2LCJleHAiOjE2NTY0MzIzNDZ9.uwSIKa8aSYlfhtawgx2o8QkO0MAsdCrZc9f3nshcn-8';
 

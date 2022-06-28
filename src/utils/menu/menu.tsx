@@ -3,50 +3,38 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as FiIcons from 'react-icons/fi';
 import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+import * as BsIcons from 'react-icons/bs';
+import * as BiIcons from 'react-icons/bi';
+import * as MdIcons from 'react-icons/md';
 
 export const moduleMenus = [
   {
-    title: 'Home',
+    title: 'Agenda',
     path: '/home',
     icon: <AiIcons.AiFillHome />,
   },
   {
-    title: 'Empresa',
-    path: '/companies',
-    icon: <FaIcons.FaBuilding />,
+    title: 'Restaurante',
+    path: '/restaurant',
+    icon: <BiIcons.BiRestaurant />,
     iconClosed: <FiIcons.FiChevronDown />,
     iconOpened: <FiIcons.FiChevronUp />,
     subMenu: [
       {
-        title: 'Cadastro',
-        path: '/companies/register',
-        icon: <FiIcons.FiFilePlus />,
+        title: 'Pratos',
+        path: '/restaurants/food',
+        icon: <MdIcons.MdRestaurant />,
       },
       {
-        title: 'Configurações',
-        path: '/companies/settings',
-        icon: <AiIcons.AiOutlineSetting />,
+        title: 'Eventos',
+        path: '/restaurants/events',
+        icon: <BsIcons.BsCalendar />,
       },
     ],
   },
   {
-    title: 'Usuários',
-    path: '/users',
-    icon: <FaIcons.FaUser />,
-    iconClosed: <FiIcons.FiChevronDown />,
-    iconOpened: <FiIcons.FiChevronUp />,
-    subMenu: [
-      {
-        title: 'Controle de Usuários',
-        path: '/users/register',
-        icon: <FaIcons.FaUserLock />,
-      },
-    ],
-  },
-  {
-    title: 'Suporte',
-    path: '/support',
-    icon: <IoIcons.IoMdHelpCircle />,
+    title: 'Buscar Musico',
+    path: '/music',
+    icon: <FaIcons.FaMusic />,
   },
 ];

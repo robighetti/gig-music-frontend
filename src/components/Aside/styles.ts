@@ -125,10 +125,15 @@ export const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  h1 {
+    color: ${({theme}) => theme.colors.primary};
+    text-shadow: 0 0 2px ${({theme}) => theme.colors.secondary};
+  }
 `;
 
 export const LogoImg = styled.img`
-
+  margin-right: 24px;
   width: 5rem;
 `;
 

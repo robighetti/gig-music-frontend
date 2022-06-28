@@ -4,11 +4,12 @@ import Route from './Route';
 
 import Layout from '../components/Layout';
 
-import SignIn from '../pages/SignIn';
-import Home from '../pages/Home';
-import Expenses from '../pages/Expenses';
-import Revenue from '../pages/Revenue';
-import Profile from '../pages/Profile';
+import { SignIn } from '../pages/SignIn';
+import { Home } from '../pages/Home';
+import { Profile } from '../pages/Profile';
+import { Plates } from '../pages/Plates';
+import { Events } from '../pages/Events';
+import { SearchMusicPlayer } from '../pages/SearchMusicPlayer';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -16,9 +17,10 @@ const Routes: React.FC = () => (
 
     <Layout>
       <Route path="/home" component={Home} isPrivate />
-      <Route path="/expenses" component={Expenses} isPrivate />
-      <Route path="/revenue" component={Revenue} isPrivate />
       <Route path="/me" component={Profile} isPrivate />
+      <Route path="/restaurants/food" component={Plates} isPrivate />
+      <Route path="/restaurants/events" component={Events} isPrivate />
+      <Route path="/music" component={SearchMusicPlayer} isPrivate />
     </Layout>
   </Switch>
 );

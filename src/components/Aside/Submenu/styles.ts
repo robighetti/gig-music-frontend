@@ -16,6 +16,7 @@ export const SidebarLink = styled(Link)`
   height: 60px;
   text-decoration: none;
   font-size: 18px;
+  transition: all 0.2s;
 
   &:hover {
     background: ${({theme}) => theme.colors.tertiary_light};

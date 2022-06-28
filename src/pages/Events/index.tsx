@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Container } from './styles';
 
-const Profile: React.FC = () => {
+const Events: React.FC = () => {
   return (
     <Container>
-      <h1>Profile</h1>
+      <h1>Eventos</h1>
     </Container>
   );
 };
 
-export { Profile };
+export { Events };
