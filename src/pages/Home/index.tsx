@@ -9,9 +9,10 @@ import {
   Content,
   Schedule,
   Calendar,
-  PlateOfTheDay,
+  DayOption,
+  DayOptionContent,
   FoodContainer,
-  DrinkContainer,
+  BandContainer
 } from './styles';
 
 const Home: React.FC = () => {
@@ -19,34 +20,41 @@ const Home: React.FC = () => {
     <Container>
       <Content>
         <Schedule>
-          <h1>Horarios Agendados</h1>
+          <h1>Agenda do dia</h1>
           <p>
             <span>Hoje</span>
             <span>dia 06</span>
             <span>Segunda feira</span>
           </p>
 
-          <PlateOfTheDay>
+          <DayOption>
             <img src={chief} alt="Imagem do restaurant" />
-            <strong>Sugestão da casa</strong>
 
-            <div />
+            <DayOptionContent>
+              <strong>Sugestão da casa</strong>
 
-            <div>
+              <br />
+              <br />
+
               <FoodContainer>
                 <img src={plate} alt="prato" />
                 <span>Nome do prato do dia</span>
               </FoodContainer>
 
-              <DrinkContainer>
+              <FoodContainer>
                 <img src={drink} alt="bebida" />
                 <span>Vinho para acompanhar</span>
-              </DrinkContainer>
-            </div>
-          </PlateOfTheDay>
+              </FoodContainer>
+            </DayOptionContent>
+          </DayOption>
         </Schedule>
         <Calendar />
+
       </Content>
+
+      <BandContainer>
+        <h1>test</h1>
+      </BandContainer>
     </Container>
   );
 };
