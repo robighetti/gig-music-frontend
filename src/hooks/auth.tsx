@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
-import gigApi from '../api/gigApi';
+//import gigApi from '../api/gigApi';
 
 import { useHistory } from 'react-router-dom';
 
