@@ -1,8 +1,12 @@
 import React from 'react';
 
+import { BiTimeFive } from 'react-icons/bi';
+
+import { ImSpoonKnife, ImGlass, ImMusic } from 'react-icons/im';
+import { FiStar } from 'react-icons/fi';
+
 import chief from '../../assets/chief.svg';
-import plate from '../../assets/plate.png';
-import drink from '../../assets/drink.png';
+import music from '../../assets/music.png';
 
 import {
   Container,
@@ -12,8 +16,16 @@ import {
   DayOption,
   DayOptionContent,
   FoodContainer,
-  BandContainer
+  BandContainer,
+  HeaderBand,
+  HeaderContent,
+  MusicContainer,
+  MusicContent,
+  MusicalStyle,
+  RepertoriesContainer,
+  SatisfactionContainer,
 } from './styles';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const Home: React.FC = () => {
   return (
@@ -37,23 +49,68 @@ const Home: React.FC = () => {
               <br />
 
               <FoodContainer>
-                <img src={plate} alt="prato" />
+                <ImSpoonKnife />
                 <span>Nome do prato do dia</span>
               </FoodContainer>
 
               <FoodContainer>
-                <img src={drink} alt="bebida" />
+                <ImGlass />
                 <span>Vinho para acompanhar</span>
               </FoodContainer>
             </DayOptionContent>
           </DayOption>
         </Schedule>
-        <Calendar />
-
+        <Calendar></Calendar>
       </Content>
 
       <BandContainer>
-        <h1>test</h1>
+        <HeaderBand>
+          <HeaderContent>
+            <ImMusic />
+            <h1>Emerson Nogueira - Violão e voz</h1>
+          </HeaderContent>
+
+          <HeaderContent>
+            <BiTimeFive />
+            <strong>10:00 hrs</strong>
+          </HeaderContent>
+        </HeaderBand>
+
+        <MusicContainer>
+          <img src={music} alt="Imagem do musico" />
+
+          <MusicContent>
+            <MusicalStyle>
+              <strong>Estilo musical</strong>
+              <span>Rock clássico Anos 80</span>
+            </MusicalStyle>
+
+            <RepertoriesContainer>
+              <strong>Repertório</strong>
+              <span>
+                Muito anos 80, com cazuza, barão vermelho, titãs e muito mais
+              </span>
+            </RepertoriesContainer>
+
+            <MusicalStyle>
+              <strong>Contato</strong>
+              <span>
+                <FaWhatsapp color="#12a454" />
+                (19) 9 9982-8057
+              </span>
+            </MusicalStyle>
+
+            <SatisfactionContainer>
+              <strong>Satisfação do público</strong>
+              <div>
+                <FiStar />
+                <FiStar />
+                <FiStar />
+                <FiStar />
+              </div>
+            </SatisfactionContainer>
+          </MusicContent>
+        </MusicContainer>
       </BandContainer>
     </Container>
   );

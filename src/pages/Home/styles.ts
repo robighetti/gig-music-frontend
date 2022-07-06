@@ -8,8 +8,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.main`
-  max-width: 1120px;
-  margin: 0px auto;
+  margin: 0px 36px;
   display: flex;
 `;
 
@@ -64,23 +63,122 @@ export const FoodContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  img {
-    width: 30px;
-    margin-right: 16px;
+  > svg {
+    font-size: 28px;
+    margin-right: 8px;
     color: ${({ theme }) => theme.colors.primary};
+  }
+
+  > span {
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: ${({ theme }) => theme.fonts.medium};
   }
 `;
 
 export const Calendar = styled.aside`
   width: 380px;
   margin-top: 36px;
-
-  background: orangered;
 `;
 
 export const BandContainer = styled.div`
-  height: auto;
-  margin-top: 56px;
-  padding: 24px;
-  background: ${({ theme }) => theme.colors.primary_light};
+  margin-top: 15vh;
+  padding: 0 36px;
+`;
+
+export const HeaderBand = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export const HeaderContent = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  svg {
+    font-size: 24px;
+    color: ${({ theme }) => theme.colors.secondary};
+
+    svg + svg {
+      margin-right: 16px;
+    }
+  }
+
+  > h1 {
+    margin: 0 16px;
+    font-size: 24px;
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+
+  > strong {
+    margin: 0 8px;
+    font-size: 24px;
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+export const MusicContainer = styled.div`
+  img {
+    width: 180px;
+  }
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export const MusicContent = styled.div`
+  width: 100%;
+  margin-left: 46px;
+  margin-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+`;
+
+export const MusicalStyle = styled.div`
+  margin-bottom: 16px;
+
+  strong {
+    margin-right: 16px;
+  }
+
+  span {
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+
+    > svg {
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const RepertoriesContainer = styled.div`
+  margin-bottom: 16px;
+
+  strong {
+    margin-right: 16px;
+  }
+
+  span {
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const SatisfactionContainer = styled.div`
+  > div {
+    margin-top: 8px;
+
+    > svg {
+      font-size: 22px;
+      color: ${({ theme }) => theme.colors.secondary};
+    }
+  }
 `;
