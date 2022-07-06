@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { BiTimeFive } from 'react-icons/bi';
+import DayPicker, { DayModifiers } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 import { ImSpoonKnife, ImGlass, ImMusic } from 'react-icons/im';
 import { FiStar } from 'react-icons/fi';
@@ -28,6 +30,14 @@ import {
 import { FaWhatsapp } from 'react-icons/fa';
 
 const Home: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
+    if (modifiers.available) {
+      setSelectedDate(day);
+    }
+  }, []);
+
   return (
     <Container>
       <Content>
@@ -60,7 +70,29 @@ const Home: React.FC = () => {
             </DayOptionContent>
           </DayOption>
         </Schedule>
-        <Calendar></Calendar>
+        <Calendar>
+          <DayPicker
+            weekdaysShort={['D', 'S', 'T', 'Q', 'Q', 'S', 'S']}
+            fromMonth={new Date()}
+            modifiers={{ available: { daysOfWeek: [0, 1, 2, 3, 4, 5, 6] } }}
+            onDayClick={handleDateChange}
+            selectedDays={selectedDate}
+            months={[
+              'Janeiro',
+              'Fevereiro',
+              'Março',
+              'Abril',
+              'Maio',
+              'Junho',
+              'Julho',
+              'Agosto',
+              'Setembro',
+              'Outubro',
+              'Novembro',
+              'Dezembro',
+            ]}
+          />
+        </Calendar>
       </Content>
 
       <BandContainer>

@@ -50,39 +50,42 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
-    /*  const response = await gigApi.post('/sessions', {
+  const signIn = useCallback(
+    async ({ email, password }) => {
+      /*  const response = await gigApi.post('/sessions', {
       email,
       password,
     }); */
 
-    //const { token, user } = response.data;
+      //const { token, user } = response.data;
 
-    /* TODO: MOCK */
-    const user = userMock.find(
-      usr => usr.email === email && usr.password === password,
-    );
+      /* TODO: MOCK */
+      const user = userMock.find(
+        usr => usr.email === email && usr.password === password,
+      );
 
-    if (!user) {
-      addToast({
-        type: 'error',
-        title: 'Erro na autenticação',
-        description: 'Ocorreu um erro ao fazer login, cheque as credenciais!',
+      if (!user) {
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login, cheque as credenciais!',
+        });
+        return;
+      }
+
+      const token: string =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU2MzQ1OTQ2LCJleHAiOjE2NTY0MzIzNDZ9.uwSIKa8aSYlfhtawgx2o8QkO0MAsdCrZc9f3nshcn-8';
+
+      localStorage.setItem('@gig:token', token);
+      localStorage.setItem('@gig:user', JSON.stringify(user));
+
+      setData({
+        token,
+        user,
       });
-      return;
-    }
-
-    const token: string =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU2MzQ1OTQ2LCJleHAiOjE2NTY0MzIzNDZ9.uwSIKa8aSYlfhtawgx2o8QkO0MAsdCrZc9f3nshcn-8';
-
-    localStorage.setItem('@gig:token', token);
-    localStorage.setItem('@gig:user', JSON.stringify(user));
-
-    setData({
-      token,
-      user,
-    });
-  }, []);
+    },
+    [addToast],
+  );
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@gig:token');
