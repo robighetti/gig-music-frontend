@@ -22,7 +22,7 @@ export default {
     shadow: '#333',
     placeholder: '#fff',
     text: '#ffffff',
-    text_dark: '##7E5EF2',
+    text_dark: '#7E5EF2',
 
     success_title: '#2e656a',
     success_background: '#e6fffa',
