@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { DayModifiers } from 'react-day-picker';
-import { format, isToday } from 'date-fns';
+import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import { BiTimeFive } from 'react-icons/bi';
