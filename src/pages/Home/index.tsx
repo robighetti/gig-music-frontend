@@ -1,5 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { DayModifiers } from 'react-day-picker';
+import { format, isToday } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import { BiTimeFive } from 'react-icons/bi';
 
@@ -12,6 +14,8 @@ import chief from '../../assets/chief.svg';
 import music from '../../assets/music.png';
 
 import { Calendar as CalendarContainer } from '../../components/Calendar';
+
+import agendaMock from '../../mocks/agendaMock';
 
 import {
   Container,
@@ -31,14 +35,78 @@ import {
   SatisfactionContainer,
 } from './styles';
 
+interface RestaurantProps {
+  scheduleDate: Date | string;
+  restaurantDayPlate: string;
+  drinkDaySuggestion: string;
+}
+
+interface MusicianProps {
+  name: string;
+  date: Date | string;
+  style: string;
+  repertory: string;
+  contact: string;
+  satisfaction: number;
+  hour?: string;
+}
+
+interface AgendaProps {
+  restaurant: RestaurantProps;
+  musician: MusicianProps;
+}
+
 const Home: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [agenda, setAgenda] = useState<AgendaProps>();
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available) {
+      const formatedData = agendaMock.map(item => ({
+        ...item,
+        restaurant: {
+          ...item.restaurant,
+          scheduleDate: format(
+            new Date(item.restaurant.scheduleDate),
+            'dd/MM/yyyy',
+          ),
+        },
+        musician: {
+          ...item.musician,
+          date: format(new Date(item.musician.date), 'dd/MM/yyyy'),
+          hour: `${format(new Date(item.musician.date), 'kk:mm')} hrs`,
+        },
+      }));
+
+      const formatedSelectedDate = format(day, 'dd/MM/yyyy');
+
+      const dayAgenda = formatedData.find(
+        item => item.restaurant.scheduleDate === formatedSelectedDate,
+      );
+
       setSelectedDate(day);
+
+      setAgenda(dayAgenda);
     }
   }, []);
+
+  const selectedDateAsText = useMemo(() => {
+    return format(selectedDate, "'Dia' dd 'de' MMMM", {
+      locale: ptBR,
+    });
+  }, [selectedDate]);
+
+  const selectedWeekDay = useMemo(() => {
+    return format(selectedDate, 'cccc', {
+      locale: ptBR,
+    });
+  }, [selectedDate]);
+
+  const numberOfStars = useMemo(() => {
+    if (agenda?.musician.satisfaction) {
+      return Array.from(Array(agenda.musician.satisfaction).keys());
+    }
+  }, [selectedDate]);
 
   return (
     <Container>
@@ -46,9 +114,8 @@ const Home: React.FC = () => {
         <Schedule>
           <h1>Agenda do dia</h1>
           <p>
-            <span>Hoje</span>
-            <span>dia 06</span>
-            <span>Segunda feira</span>
+            <span>{selectedDateAsText}</span>
+            <span>{selectedWeekDay}</span>
           </p>
 
           <DayOption>
@@ -62,12 +129,18 @@ const Home: React.FC = () => {
 
               <FoodContainer>
                 <ImSpoonKnife />
-                <span>Nome do prato do dia</span>
+                <span>
+                  {agenda?.restaurant.restaurantDayPlate ||
+                    '** PRATO NÃO DISPONÍVEL **'}
+                </span>
               </FoodContainer>
 
               <FoodContainer>
                 <ImGlass />
-                <span>Vinho para acompanhar</span>
+                <span>
+                  {agenda?.restaurant.drinkDaySuggestion ||
+                    '** BEBIDA NÃO DISPONÍVEL **'}
+                </span>
               </FoodContainer>
             </DayOptionContent>
           </DayOption>
@@ -81,52 +154,57 @@ const Home: React.FC = () => {
       </Content>
 
       <BandContainer>
-        <HeaderBand>
-          <HeaderContent>
-            <ImMusic />
-            <h1>Emerson Nogueira - Violão e voz</h1>
-          </HeaderContent>
+        {agenda?.musician.date ? (
+          <HeaderBand>
+            <HeaderContent>
+              <ImMusic />
+              <h1>{agenda?.musician.name}</h1>
+            </HeaderContent>
 
+            <HeaderContent>
+              <BiTimeFive />
+              <strong>{agenda?.musician.hour}</strong>
+            </HeaderContent>
+          </HeaderBand>
+        ) : (
           <HeaderContent>
-            <BiTimeFive />
-            <strong>10:00 hrs</strong>
+            <h1>** Músico não encontrado **</h1>
           </HeaderContent>
-        </HeaderBand>
+        )}
 
         <MusicContainer>
           <img src={music} alt="Imagem do musico" />
 
-          <MusicContent>
-            <MusicalStyle>
-              <strong>Estilo musical</strong>
-              <span>Rock clássico Anos 80</span>
-            </MusicalStyle>
+          {agenda?.musician.date && (
+            <MusicContent>
+              <MusicalStyle>
+                <strong>Estilo musical</strong>
+                <span>{agenda?.musician.style}</span>
+              </MusicalStyle>
 
-            <RepertoriesContainer>
-              <strong>Repertório</strong>
-              <span>
-                Muito anos 80, com cazuza, barão vermelho, titãs e muito mais
-              </span>
-            </RepertoriesContainer>
+              <RepertoriesContainer>
+                <strong>Repertório</strong>
+                <span>{agenda?.musician.repertory}</span>
+              </RepertoriesContainer>
 
-            <MusicalStyle>
-              <strong>Contato</strong>
-              <span>
-                <FaWhatsapp color="#12a454" />
-                (19) 9 9982-8057
-              </span>
-            </MusicalStyle>
+              <MusicalStyle>
+                <strong>Contato</strong>
+                <span>
+                  <FaWhatsapp color="#12a454" />
+                  {agenda?.musician.contact}
+                </span>
+              </MusicalStyle>
 
-            <SatisfactionContainer>
-              <strong>Satisfação do público</strong>
-              <div>
-                <FiStar />
-                <FiStar />
-                <FiStar />
-                <FiStar />
-              </div>
-            </SatisfactionContainer>
-          </MusicContent>
+              <SatisfactionContainer>
+                <strong>Satisfação do público</strong>
+                <div>
+                  {numberOfStars?.map(item => (
+                    <FiStar />
+                  ))}
+                </div>
+              </SatisfactionContainer>
+            </MusicContent>
+          )}
         </MusicContainer>
       </BandContainer>
     </Container>
