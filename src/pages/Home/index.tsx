@@ -106,7 +106,7 @@ const Home: React.FC = () => {
     if (agenda?.musician.satisfaction) {
       return Array.from(Array(agenda.musician.satisfaction).keys());
     }
-  }, [selectedDate]);
+  }, [agenda]);
 
   return (
     <Container>

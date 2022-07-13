@@ -18,8 +18,7 @@ const Routes: React.FC = () => (
     <Layout>
       <Route path="/home" component={Home} isPrivate />
       <Route path="/me" component={Profile} isPrivate />
-      <Route path="/restaurants/food" component={Plates} isPrivate />
-      <Route path="/restaurants/events" component={Events} isPrivate />
+      <Route path="/food" component={Plates} isPrivate />
       <Route path="/music" component={SearchMusicPlayer} isPrivate />
     </Layout>
   </Switch>
