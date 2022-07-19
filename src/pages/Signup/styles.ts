@@ -19,7 +19,7 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${({theme}) => theme.colors.shape};
+  background: ${({theme}) => theme.colors.tertiary};
   border-radius: 8px;
 
   top: 50%;
@@ -42,12 +42,12 @@ export const Content = styled.div`
       color: ${({theme}) => theme.colors.primary};
       margin-bottom: 24px;
       font-family: ${({theme}) => theme.fonts.medium};
-    }
+    }    
   }
 `;
 
 export const ForgotPass = styled(Link)`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.shape};
   display: block;
   margin-top: 24px;
   text-decoration: none;

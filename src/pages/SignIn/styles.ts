@@ -47,7 +47,7 @@ export const Content = styled.div`
 `;
 
 export const ForgotPass = styled(Link)`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.shape};
   display: block;
   margin-top: 24px;
   text-decoration: none;
