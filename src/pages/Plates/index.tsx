@@ -65,11 +65,7 @@ const Plates: React.FC = () => {
         item => item.scheduleDate === format(day, 'dd/MM/yyyy'),
       );
 
-      console.log(filteredDay);
-      console.log(restaurantData);
-
       if (!filteredDay) return;
-
       setDayData(filteredDay);
     }
   }, []);
