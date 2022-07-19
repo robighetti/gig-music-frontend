@@ -9,11 +9,11 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background: ${({theme}) => theme.colors.tertiary_light};
+  background: ${({theme}) => theme.colors.primary_light};
   border-radius: 10px;
 
-  border: 2px solid ${({theme}) => theme.colors.tertiary_light};
-  color: ${({theme}) => theme.colors.placeholder};
+  border: 2px solid ${({theme}) => theme.colors.primary_light};
+  color: ${({theme}) => theme.colors.primary};
 
   padding: 16px;
   width: 100%;
@@ -48,11 +48,11 @@ export const Container = styled.div<ContainerProps>`
     flex: 1;
     background: transparent;
     border: 0;
-    color: ${({theme}) => theme.colors.text};
+    color: ${({theme}) => theme.colors.secondary};
     font-family: ${({theme}) => theme.fonts.regular};
 
     &::placeholder {
-      color: ${({theme}) => theme.colors.placeholder};
+      color: ${({theme}) => theme.colors.primary};
     }
   }
 

@@ -1,11 +1,13 @@
 import React, { useCallback, useRef } from 'react';
-import { FiMail, FiLock } from 'react-icons/fi';
+import { FiMail, FiLock, FiEdit } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
+import { useHistory } from 'react-router-dom';
 
-import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
+
+import userMock from '../../mocks/userMock';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -16,14 +18,15 @@ import Button from '../../components/Button';
 import { Container, Content, Background, ForgotPass } from './styles';
 
 interface UserProps {
+  name: string;
   email: string;
   password: string;
 }
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
-  const { signIn } = useAuth();
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
@@ -32,7 +35,10 @@ const SignIn: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          email: Yup.string().email().required('O Email é obrigatório!'),
+          name: Yup.string().required('O nome do restaurante é obrigatório!'),
+          email: Yup.string()
+            .email('O Email precisa ser um email valido!')
+            .required('O Email é obrigatório!'),
           password: Yup.string().required('Senha obrigatória!'),
         });
 
@@ -40,12 +46,23 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        const { email, password } = data;
+        const { name, email, password } = data;
 
-        await signIn({
+        userMock.push({
+          id: (userMock.length + 1).toString(),
+          name,
           email,
           password,
+          avatar_url: '',
+          avatar: '',
         });
+
+        addToast({
+          type: 'success',
+          title: 'Usuário criado com sucesso, agora é só usar !',
+        });
+
+        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -55,12 +72,13 @@ const SignIn: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, cheque as credenciais!',
+          title: 'Erro no cadastro',
+          description:
+            'Ocorreu um erro ao fazer cadastro, cheque suas informações!',
         });
       }
     },
-    [signIn, addToast],
+    [addToast, history],
   );
   return (
     <Container>
@@ -69,7 +87,14 @@ const SignIn: React.FC = () => {
         <img src={logo} alt="Gig Music" />
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu logon</h1>
+          <h1>Crie seu cadastro</h1>
+
+          <Input
+            name="name"
+            icon={FiEdit}
+            type="text"
+            placeholder="Nome do restaurante"
+          />
 
           <Input name="email" icon={FiMail} type="text" placeholder="E-mail" />
           <Input
@@ -79,13 +104,13 @@ const SignIn: React.FC = () => {
             placeholder="Senha"
           />
 
-          <Button type="submit">Entrar</Button>
+          <Button type="submit">Cadastrar</Button>
 
-          <ForgotPass to="/sign-up">Criar cadastro</ForgotPass>
+          <ForgotPass to="/">Voltar para login</ForgotPass>
         </Form>
       </Content>
     </Container>
   );
 };
 
-export { SignIn };
+export { SignUp };

@@ -8,6 +8,7 @@ export const Container = styled.button`
   padding: 0 16px;
   color: ${({theme}) => theme.colors.text};
   width: 100%;
+  font-size: 20px;
   font-weight: ${({theme}) => theme.fonts.medium};
   margin-top: 16px;
   transition: all 0.3s;

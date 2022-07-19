@@ -20,8 +20,8 @@ export default {
     black: '#0D0D0D',
     gray: '#C0C0C0',
     shadow: '#333',
-    placeholder: '#fff',
-    text: '#ffffff',
+    placeholder: '#4F4F4F',
+    text: '#fff',
     text_dark: '#7E5EF2',
 
     success_title: '#2e656a',

@@ -19,7 +19,7 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${({theme}) => theme.colors.tertiary};
+  background: ${({theme}) => theme.colors.shape};
   border-radius: 8px;
 
   top: 50%;
@@ -42,7 +42,7 @@ export const Content = styled.div`
       color: ${({theme}) => theme.colors.primary};
       margin-bottom: 24px;
       font-family: ${({theme}) => theme.fonts.medium};
-    }    
+    }
   }
 `;
 
