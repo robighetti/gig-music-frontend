@@ -23,9 +23,7 @@ const MainHeader: React.FC = () => {
         <Profile>
           <Welcome>Olá, {emoji}</Welcome>
 
-          <Link to="/me" title="Meu Perfil">
-            <UserName>{user?.name}</UserName>
-          </Link>
+          <UserName>{user?.name}</UserName>
         </Profile>
       </RightSide>
     </Container>

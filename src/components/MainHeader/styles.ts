@@ -52,4 +52,7 @@ export const Profile = styled.div`
 
 export const Welcome = styled.h3``;
 
-export const UserName = styled.span``;
+export const UserName = styled.span`
+  font-family: ${({theme}) => theme.fonts.medium};
+  font-size: 18px;
+`;
