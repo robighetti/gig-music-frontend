@@ -184,28 +184,24 @@ const Plates: React.FC = () => {
         <h1>Agendamentos do mês</h1>
         <Scroll>
           <List>
-            {restaurantData.map(item =>
-              item.scheduleDate ? (
-                <ListItems key={`#${item.scheduleDate}|${Math.random()}`}>
-                  <label htmlFor="date">
-                    Data
-                    <p id="date">{item.scheduleDate}</p>
-                  </label>
+            {restaurantData.map(item => (
+              <ListItems key={`#${item.scheduleDate}|${Math.random()}`}>
+                <label htmlFor="date">
+                  Data
+                  <p id="date">{item.scheduleDate}</p>
+                </label>
 
-                  <label htmlFor="plate">
-                    Prato
-                    <p id="plate">{item.restaurantDayPlate}</p>
-                  </label>
+                <label htmlFor="plate">
+                  Prato
+                  <p id="plate">{item.restaurantDayPlate}</p>
+                </label>
 
-                  <label htmlFor="drink">
-                    Bebida
-                    <p id="type">{item.drinkDaySuggestion}</p>
-                  </label>
-                </ListItems>
-              ) : (
-                <span>Não possuem agendamentos no Mês</span>
-              ),
-            )}
+                <label htmlFor="drink">
+                  Bebida
+                  <p id="type">{item.drinkDaySuggestion}</p>
+                </label>
+              </ListItems>
+            ))}
           </List>
         </Scroll>
       </ListContainer>

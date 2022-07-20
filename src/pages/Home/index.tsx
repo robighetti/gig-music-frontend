@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
 import { DayModifiers } from 'react-day-picker';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -16,6 +16,7 @@ import music from '../../assets/music.png';
 import { Calendar as CalendarContainer } from '../../components/Calendar';
 
 import agendaMock from '../../mocks/agendaMock';
+import platesMock from '../../mocks/platesMock';
 
 import {
   Container,
@@ -52,8 +53,8 @@ interface MusicianProps {
 }
 
 interface AgendaProps {
-  restaurant: RestaurantProps;
-  musician: MusicianProps;
+  restaurant?: RestaurantProps;
+  musician?: MusicianProps;
 }
 
 const Home: React.FC = () => {
@@ -62,31 +63,13 @@ const Home: React.FC = () => {
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available) {
-      const formatedData = agendaMock.map(item => ({
-        ...item,
-        restaurant: {
-          ...item.restaurant,
-          scheduleDate: format(
-            new Date(item.restaurant.scheduleDate),
-            'dd/MM/yyyy',
-          ),
-        },
-        musician: {
-          ...item.musician,
-          date: format(new Date(item.musician.date), 'dd/MM/yyyy'),
-          hour: `${format(new Date(item.musician.date), 'kk:mm')} hrs`,
-        },
-      }));
-
-      const formatedSelectedDate = format(day, 'dd/MM/yyyy');
-
-      const dayAgenda = formatedData.find(
-        item => item.restaurant.scheduleDate === formatedSelectedDate,
+      const restaurant = platesMock.find(
+        item => item.scheduleDate === format(day, 'dd/MM/yyyy'),
       );
 
       setSelectedDate(day);
 
-      setAgenda(dayAgenda);
+      setAgenda({ ...agenda, restaurant });
     }
   }, []);
 
@@ -103,10 +86,18 @@ const Home: React.FC = () => {
   }, [selectedDate]);
 
   const numberOfStars = useMemo(() => {
-    if (agenda?.musician.satisfaction) {
+    if (agenda?.musician?.satisfaction) {
       return Array.from(Array(agenda.musician.satisfaction).keys());
     }
   }, [agenda]);
+
+  useEffect(() => {
+    const restaurant = platesMock.find(
+      item => item.scheduleDate === format(new Date(), 'dd/MM/yyyy'),
+    );
+
+    setAgenda({ ...agenda, restaurant });
+  }, []);
 
   return (
     <Container>
@@ -130,7 +121,7 @@ const Home: React.FC = () => {
               <FoodContainer>
                 <ImSpoonKnife />
                 <span>
-                  {agenda?.restaurant.restaurantDayPlate ||
+                  {agenda?.restaurant?.restaurantDayPlate ||
                     '** PRATO NÃO DISPONÍVEL **'}
                 </span>
               </FoodContainer>
@@ -138,7 +129,7 @@ const Home: React.FC = () => {
               <FoodContainer>
                 <ImGlass />
                 <span>
-                  {agenda?.restaurant.drinkDaySuggestion ||
+                  {agenda?.restaurant?.drinkDaySuggestion ||
                     '** BEBIDA NÃO DISPONÍVEL **'}
                 </span>
               </FoodContainer>
@@ -154,7 +145,7 @@ const Home: React.FC = () => {
       </Content>
 
       <BandContainer>
-        {agenda?.musician.date ? (
+        {agenda?.musician?.date ? (
           <HeaderBand>
             <HeaderContent>
               <ImMusic />
@@ -175,7 +166,7 @@ const Home: React.FC = () => {
         <MusicContainer>
           <img src={music} alt="Imagem do musico" />
 
-          {agenda?.musician.date && (
+          {agenda?.musician?.date && (
             <MusicContent>
               <MusicalStyle>
                 <strong>Estilo musical</strong>
