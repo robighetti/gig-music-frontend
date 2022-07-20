@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 export const Container = styled.div`
   height: 100%;
@@ -51,4 +52,9 @@ export const ListContainer = styled.div`
   h1 {
     margin-bottom: 16px;
   }
+`;
+
+export const Scroll = styled(PerfectScrollbar)`
+  max-height: 300px;
+  padding: 5px 15px;
 `;

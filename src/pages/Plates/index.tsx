@@ -6,9 +6,8 @@ import React, {
   useEffect,
 } from 'react';
 import { DayModifiers } from 'react-day-picker';
-import { FiDelete, FiEdit, FiZoomIn } from 'react-icons/fi';
 import { MdRestaurant } from 'react-icons/md';
-import { add, format } from 'date-fns';
+import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import { Form } from '@unform/web';
@@ -34,6 +33,7 @@ import {
   PlateContainer,
   PlateContent,
   ListContainer,
+  Scroll,
 } from './styles';
 import { BiDrink } from 'react-icons/bi';
 
@@ -182,30 +182,32 @@ const Plates: React.FC = () => {
       </Content>
       <ListContainer>
         <h1>Agendamentos do mês</h1>
-        <List>
-          {restaurantData.map(item =>
-            item.scheduleDate ? (
-              <ListItems key={`#${item.scheduleDate}|${Math.random()}`}>
-                <label htmlFor="date">
-                  Data
-                  <p id="date">{item.scheduleDate}</p>
-                </label>
+        <Scroll>
+          <List>
+            {restaurantData.map(item =>
+              item.scheduleDate ? (
+                <ListItems key={`#${item.scheduleDate}|${Math.random()}`}>
+                  <label htmlFor="date">
+                    Data
+                    <p id="date">{item.scheduleDate}</p>
+                  </label>
 
-                <label htmlFor="plate">
-                  Prato
-                  <p id="plate">{item.restaurantDayPlate}</p>
-                </label>
+                  <label htmlFor="plate">
+                    Prato
+                    <p id="plate">{item.restaurantDayPlate}</p>
+                  </label>
 
-                <label htmlFor="drink">
-                  Bebida
-                  <p id="type">{item.drinkDaySuggestion}</p>
-                </label>
-              </ListItems>
-            ) : (
-              <span>Não possuem agendamentos no Mês</span>
-            ),
-          )}
-        </List>
+                  <label htmlFor="drink">
+                    Bebida
+                    <p id="type">{item.drinkDaySuggestion}</p>
+                  </label>
+                </ListItems>
+              ) : (
+                <span>Não possuem agendamentos no Mês</span>
+              ),
+            )}
+          </List>
+        </Scroll>
       </ListContainer>
     </Container>
   );
