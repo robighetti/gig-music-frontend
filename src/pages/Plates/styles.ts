@@ -27,6 +27,7 @@ export const PlateContainer = styled.div`
   width: 40%;
 
   img {
+    margin-top: 16px;
     width: 180px;
   }
 
