@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useEffect,
 } from 'react';
-import { DayModifiers } from 'react-day-picker';
 import { FaMusic } from 'react-icons/fa';
 
 import { format } from 'date-fns';
@@ -58,10 +57,11 @@ const SearchMusicPlayer: React.FC = () => {
   );
   const [musicians, setMusicians] = useState<MusiciansProps[]>([]);
 
-  const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
+  const handleDateChange = useCallback((day: Date) => {
     const musicianPerDay = musicianMock.filter(
       item => item.date === format(day, 'dd/MM/yyyy'),
     );
+
     setSelectedDate(day);
     setMusicians(musicianPerDay);
   }, []);
@@ -72,47 +72,50 @@ const SearchMusicPlayer: React.FC = () => {
     });
   }, [selectedDate]);
 
-  const handleSubmit = useCallback(async (data, { reset }) => {
-    if (!data.name) return;
+  const handleSubmit = useCallback(
+    async (data, { reset }) => {
+      if (!data.name) return;
 
-    const checkIfExists = musicianMock.find(
-      item =>
-        item.date === format(selectedDate, 'dd/MM/yyyy') &&
-        !item.avaliable &&
-        item.name !== data.name,
-    );
-    if (checkIfExists) {
+      const checkIfExists = musicianMock.find(
+        item =>
+          item.date === format(selectedDate, 'dd/MM/yyyy') &&
+          !item.avaliable &&
+          item.name !== data.name,
+      );
+      if (checkIfExists) {
+        addToast({
+          type: 'error',
+          title: 'Já existe agendamento',
+          description: `Para a data de ${selectedDateAsText} já existe músico!`,
+        });
+        reset();
+        return;
+      }
+
+      const index = musicianMock.findIndex(
+        item =>
+          item.name === data.name &&
+          item.date === format(selectedDate, 'dd/MM/yyyy'),
+      );
+
+      musicianMock[index].avaliable = !musicianMock[index].avaliable;
+
+      const musicianPerDay = musicianMock.filter(
+        item => item.date === format(new Date(), 'dd/MM/yyyy'),
+      );
+
       addToast({
-        type: 'error',
-        title: 'Já existe agendamento',
-        description: `Para a data de ${selectedDateAsText} já existe músico!`,
+        type: 'success',
+        title: 'Musico confirmado',
+        description: `Musico ${data.name} confirmado para o ${selectedDateAsText}`,
       });
+
+      setMusicians(musicianPerDay);
+      setMusicianData({} as MusiciansProps);
       reset();
-      return;
-    }
-
-    const index = musicianMock.findIndex(
-      item =>
-        item.name === data.name &&
-        item.date === format(selectedDate, 'dd/MM/yyyy'),
-    );
-
-    musicianMock[index].avaliable = !musicianMock[index].avaliable;
-
-    const musicianPerDay = musicianMock.filter(
-      item => item.date === format(new Date(), 'dd/MM/yyyy'),
-    );
-
-    addToast({
-      type: 'success',
-      title: 'Musico confirmado',
-      description: `Musico ${data.name} confirmado para o ${selectedDateAsText}`,
-    });
-
-    setMusicians(musicianPerDay);
-    setMusicianData({} as MusiciansProps);
-    reset();
-  }, []);
+    },
+    [addToast, selectedDate, selectedDateAsText],
+  );
 
   const loadMusician = useCallback((item: MusiciansProps) => {
     console.log(item);
@@ -124,7 +127,7 @@ const SearchMusicPlayer: React.FC = () => {
       item => item.date === format(new Date(), 'dd/MM/yyyy'),
     );
     setMusicians(musicianPerDay);
-  }, [musicianMock]);
+  }, []);
 
   return (
     <Container>
