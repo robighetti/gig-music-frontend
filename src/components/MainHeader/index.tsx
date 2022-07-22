@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import emojis from '../../utils/emojis';
 
 import { useAuth } from '../../hooks/auth';

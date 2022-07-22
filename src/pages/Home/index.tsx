@@ -15,7 +15,6 @@ import music from '../../assets/music.png';
 
 import { Calendar as CalendarContainer } from '../../components/Calendar';
 
-import agendaMock from '../../mocks/agendaMock';
 import platesMock from '../../mocks/platesMock';
 
 import {

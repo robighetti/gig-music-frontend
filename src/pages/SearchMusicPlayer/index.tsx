@@ -33,6 +33,7 @@ import {
   ListContainer,
   Scroll,
 } from './styles';
+import { FiPlusCircle, FiXCircle } from 'react-icons/fi';
 
 interface MusiciansProps {
   name: string;
@@ -41,19 +42,25 @@ interface MusiciansProps {
   repertory: string;
   contact: string;
   satisfaction: number;
+  avaliable: boolean;
 }
 
 const SearchMusicPlayer: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [musician, setMusician] = useState<MusiciansProps[]>([]);
+  const [musicianData, setMusicianData] = useState<MusiciansProps>(
+    {} as MusiciansProps,
+  );
+  const [musicians, setMusicians] = useState<MusiciansProps[]>([]);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available) {
-      console.log(day);
-
+      const musicianPerDay = musicianMock.filter(
+        item => item.date === format(day, 'dd/MM/yyyy'),
+      );
       setSelectedDate(day);
+      setMusicians(musicianPerDay);
     }
   }, []);
 
@@ -63,11 +70,36 @@ const SearchMusicPlayer: React.FC = () => {
     });
   }, [selectedDate]);
 
-  const handleSubmit = useCallback(async () => {}, []);
+  const handleSubmit = useCallback(async (data, { reset }) => {
+    if (!data.name) return;
+
+    const index = musicianMock.findIndex(
+      item =>
+        item.name === data.name &&
+        item.date === format(selectedDate, 'dd/MM/yyyy'),
+    );
+
+    musicianMock[index].avaliable = !musicianMock[index].avaliable;
+
+    const musicianPerDay = musicianMock.filter(
+      item => item.date === format(new Date(), 'dd/MM/yyyy'),
+    );
+    setMusicians(musicianPerDay);
+    setMusicianData({} as MusiciansProps);
+    reset();
+  }, []);
+
+  const loadMusician = useCallback((item: MusiciansProps) => {
+    console.log(item);
+    setMusicianData(item);
+  }, []);
 
   useEffect(() => {
-    setMusician(musicianMock);
-  }, []);
+    const musicianPerDay = musicianMock.filter(
+      item => item.date === format(new Date(), 'dd/MM/yyyy'),
+    );
+    setMusicians(musicianPerDay);
+  }, [musicianMock]);
 
   return (
     <Container>
@@ -80,13 +112,15 @@ const SearchMusicPlayer: React.FC = () => {
 
             <Form ref={formRef} onSubmit={handleSubmit}>
               <Input
-                name="musician"
+                name="name"
                 icon={FaMusic}
                 type="text"
+                value={musicianData.name}
                 placeholder="Musico"
+                disabled
               />
 
-              <Button type="submit">Agendar</Button>
+              <Button type="submit">Salvar</Button>
             </Form>
           </MusicContent>
         </MusicContainer>
@@ -99,10 +133,10 @@ const SearchMusicPlayer: React.FC = () => {
         </Calendar>
       </Content>
       <ListContainer>
-        <h1>Agendamentos do mês</h1>
+        <h1>Músicos disponíveis</h1>
         <Scroll>
           <List>
-            {musician.map(item =>
+            {musicians.map(item =>
               item.name ? (
                 <ListItems key={`#${item.name}|${Math.random()}`}>
                   <label htmlFor="date">
@@ -124,6 +158,20 @@ const SearchMusicPlayer: React.FC = () => {
                     Contato
                     <p id="contact">{item.contact}</p>
                   </label>
+
+                  <div>
+                    <button
+                      type="button"
+                      title="Selecionar"
+                      onClick={() => loadMusician(item)}
+                    >
+                      {item.avaliable ? (
+                        <FiPlusCircle size={20} color="#12a454" />
+                      ) : (
+                        <FiXCircle size={20} color="#e83f5b" />
+                      )}
+                    </button>
+                  </div>
                 </ListItems>
               ) : (
                 <span>Não possuem agendamentos no Mês</span>
