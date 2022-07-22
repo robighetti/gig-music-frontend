@@ -16,6 +16,8 @@ import { FormHandles } from '@unform/core';
 
 import { Calendar as CalendarContainer } from '../../components/Calendar';
 
+import { useToast } from '../../hooks/toast';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -48,6 +50,8 @@ interface MusiciansProps {
 const SearchMusicPlayer: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
+  const { addToast } = useToast();
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [musicianData, setMusicianData] = useState<MusiciansProps>(
     {} as MusiciansProps,
@@ -55,13 +59,11 @@ const SearchMusicPlayer: React.FC = () => {
   const [musicians, setMusicians] = useState<MusiciansProps[]>([]);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    if (modifiers.available) {
-      const musicianPerDay = musicianMock.filter(
-        item => item.date === format(day, 'dd/MM/yyyy'),
-      );
-      setSelectedDate(day);
-      setMusicians(musicianPerDay);
-    }
+    const musicianPerDay = musicianMock.filter(
+      item => item.date === format(day, 'dd/MM/yyyy'),
+    );
+    setSelectedDate(day);
+    setMusicians(musicianPerDay);
   }, []);
 
   const selectedDateAsText = useMemo(() => {
@@ -72,6 +74,22 @@ const SearchMusicPlayer: React.FC = () => {
 
   const handleSubmit = useCallback(async (data, { reset }) => {
     if (!data.name) return;
+
+    const checkIfExists = musicianMock.find(
+      item =>
+        item.date === format(selectedDate, 'dd/MM/yyyy') &&
+        !item.avaliable &&
+        item.name !== data.name,
+    );
+    if (checkIfExists) {
+      addToast({
+        type: 'error',
+        title: 'Já existe agendamento',
+        description: `Para a data de ${selectedDateAsText} já existe músico!`,
+      });
+      reset();
+      return;
+    }
 
     const index = musicianMock.findIndex(
       item =>
@@ -84,6 +102,13 @@ const SearchMusicPlayer: React.FC = () => {
     const musicianPerDay = musicianMock.filter(
       item => item.date === format(new Date(), 'dd/MM/yyyy'),
     );
+
+    addToast({
+      type: 'success',
+      title: 'Musico confirmado',
+      description: `Musico ${data.name} confirmado para o ${selectedDateAsText}`,
+    });
+
     setMusicians(musicianPerDay);
     setMusicianData({} as MusiciansProps);
     reset();
