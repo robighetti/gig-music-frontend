@@ -39,6 +39,7 @@ import { FiPlusCircle, FiXCircle } from 'react-icons/fi';
 interface MusiciansProps {
   name: string;
   date: string;
+  hour: string;
   style: string;
   repertory: string;
   contact: string;
@@ -170,6 +171,11 @@ const SearchMusicPlayer: React.FC = () => {
                   <label htmlFor="date">
                     Data
                     <p id="date">{item.date}</p>
+                  </label>
+
+                  <label htmlFor="time">
+                    Hora da Disponibilidade
+                    <p id="time">{item.hour}</p>
                   </label>
 
                   <label htmlFor="musician">

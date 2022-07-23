@@ -101,8 +101,9 @@ export const MenuContent = styled.div`
     margin-bottom: 16px;
     background: transparent;
     border: none;
-    color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.text};
     font-weight: ${({theme}) => theme.fonts.medium};
+    margin: 8px;    
 
     transition: all 0.2s;
 

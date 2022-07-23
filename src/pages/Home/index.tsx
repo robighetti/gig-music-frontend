@@ -34,6 +34,7 @@ import {
   RepertoriesContainer,
   SatisfactionContainer,
 } from './styles';
+import musicianMock from '../../mocks/musicianMock';
 
 interface RestaurantProps {
   scheduleDate: Date | string;
@@ -60,16 +61,18 @@ const Home: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [agenda, setAgenda] = useState<AgendaProps>();
 
-  const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    if (modifiers.available) {
-      const restaurant = platesMock.find(
-        item => item.scheduleDate === format(day, 'dd/MM/yyyy'),
-      );
+  const handleDateChange = useCallback((day: Date) => {
+    const restaurant = platesMock.find(
+      item => item.scheduleDate === format(day, 'dd/MM/yyyy'),
+    );
 
-      setSelectedDate(day);
+    const musician = musicianMock.find(
+      item => item.date === format(day, 'dd/MM/yyyy'),
+    );
 
-      setAgenda({ ...agenda, restaurant });
-    }
+    setSelectedDate(day);
+
+    setAgenda({ ...agenda, restaurant, musician });
   }, []);
 
   const selectedDateAsText = useMemo(() => {
@@ -95,7 +98,11 @@ const Home: React.FC = () => {
       item => item.scheduleDate === format(new Date(), 'dd/MM/yyyy'),
     );
 
-    setAgenda({ ...agenda, restaurant });
+    const musician = musicianMock.find(
+      item => item.date === format(new Date(), 'dd/MM/yyyy'),
+    );
+
+    setAgenda({ ...agenda, restaurant, musician });
   }, []);
 
   return (
