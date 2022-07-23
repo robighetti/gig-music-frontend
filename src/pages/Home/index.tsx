@@ -67,7 +67,7 @@ const Home: React.FC = () => {
     );
 
     const musician = musicianMock.find(
-      item => item.date === format(day, 'dd/MM/yyyy'),
+      item => item.date === format(day, 'dd/MM/yyyy') && !item.avaliable,
     );
 
     setSelectedDate(day);
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
     );
 
     const musician = musicianMock.find(
-      item => item.date === format(new Date(), 'dd/MM/yyyy'),
+      item => item.date === format(new Date(), 'dd/MM/yyyy') && !item.avaliable,
     );
 
     setAgenda({ ...agenda, restaurant, musician });
